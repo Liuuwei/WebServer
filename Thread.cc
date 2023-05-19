@@ -10,10 +10,7 @@
 
 
 Thread::Thread(int *epollfd) : epollfd_(epollfd), events_(1024){
-    format_ = "HTTP/1.1 200 OK\r\n";
-    format_ += "Content-Type: text/html\r\n";
-    format_ += "Content-Length: ";
-    end_ = "\r\n\r\n";
+    printf("New Thread Create\n");
 }
 
 void Thread::begin() {
@@ -25,10 +22,7 @@ void Thread::begin() {
 void Thread::start() {
     while(true) {
         int numEvents = 0;
-        {
-            std::unique_lock lock(mutex_);
-            numEvents = ::epoll_wait(*epollfd_, &*events_.begin(), events_.size(), 10000);
-        }
+        numEvents = ::epoll_wait(*epollfd_, &*events_.begin(), events_.size(), 1000);
         if (numEvents > events_.size()) {
             events_.resize(events_.size() * 2);
         }
@@ -113,7 +107,7 @@ void Thread::handleRead(int fd) {
         if (len <= 0)break;
         send(fd, &*buf.begin(), len);
     }
-    printf("end \n");
+    printf("tid : %d\n", gettid());
 }
 
 

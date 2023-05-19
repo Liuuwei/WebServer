@@ -9,6 +9,8 @@
 #include <thread>
 #include <vector>
 #include <mutex>
+#include <unistd.h>
+#include <sys/types.h>
 #include <sys/epoll.h>
 
 class Thread {
@@ -17,11 +19,13 @@ class Thread {
         ~Thread() {}
         void start();
         void begin();
+        int* epollFd() const { return epollfd_; };
+        int tid() const { return ::gettid(); }
         std::mutex mutex_;
     private:
         void send(int fd, const char *buf, int size);
         void close(int fd);
-        int *epollfd_;
+        int* epollfd_;
         std::shared_ptr<std::thread> thread_;
         std::vector<epoll_event> events_;
         void handleRead(int fd);

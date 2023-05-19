@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Acceptor.h"
+#include "TcpServer.h"
 #include "Thread.h"
 
 #include <sys/epoll.h>
@@ -13,14 +13,19 @@
 
 class ThreadPool {
     public:
-    ThreadPool(const std::string ip, int port);
-    ~ThreadPool();
-    void setThtreadNumx(int threadNum) { threadNums_ = threadNum; }
-    void start();
+        ThreadPool(const std::string ip = "10.211.55.3", int port = 9999);
+        ~ThreadPool() {}
+        void setThreadNums(int threadNum) { threadNums_ = threadNum; }
+        void begin();
+        void start();
     private:
-    void threadFunc();
-    int threadNums_;
-    std::vector<int> fds_;
-    std::vector<std::shared_ptr<Thread>> threads_;
-    Acceptor acceptor_;  
+        std::shared_ptr<Thread> getThread();
+        std::string ip_;
+        int port_;
+        int threadNums_;
+        int listenfd_;
+        std::vector<int> fds_;
+        std::vector<std::shared_ptr<Thread>> threads_;
+        TcpServer server_;
+        int next_;
 };
