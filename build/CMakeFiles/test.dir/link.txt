@@ -1,0 +1,1 @@
+/usr/bin/c++  -g CMakeFiles/test.dir/Acceptor.cc.o CMakeFiles/test.dir/Buffer.cc.o CMakeFiles/test.dir/TcpServer.cc.o CMakeFiles/test.dir/Thread.cc.o CMakeFiles/test.dir/ThreadPool.cc.o CMakeFiles/test.dir/tmp.cc.o -o test 
