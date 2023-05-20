@@ -558,6 +558,7 @@ CMakeFiles/test.dir/TcpServer.cc.o: ../TcpServer.cc \
 CMakeFiles/test.dir/Thread.cc.o: ../Thread.cc \
   /usr/include/stdc-predef.h \
   ../Thread.h \
+  ../Statistics.h \
   ../Callback.h \
   /usr/include/c++/11/functional \
   /usr/include/aarch64-linux-gnu/c++/11/bits/c++config.h \
@@ -1040,6 +1041,7 @@ CMakeFiles/test.dir/ThreadPool.cc.o: ../ThreadPool.cc \
   /usr/include/aarch64-linux-gnu/bits/unistd_ext.h \
   /usr/include/linux/close_range.h \
   ../Thread.h \
+  ../Statistics.h \
   ../Callback.h \
   /usr/include/c++/11/functional \
   /usr/include/c++/11/tuple \
@@ -1289,6 +1291,7 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
   /usr/include/aarch64-linux-gnu/bits/unistd_ext.h \
   /usr/include/linux/close_range.h \
   ../Thread.h \
+  ../Statistics.h \
   ../Callback.h \
   /usr/include/c++/11/functional \
   /usr/include/c++/11/tuple \
@@ -1355,8 +1358,83 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
   /usr/include/c++/11/bits/std_mutex.h \
   /usr/include/c++/11/bits/unique_lock.h \
   /usr/include/aarch64-linux-gnu/sys/epoll.h \
-  /usr/include/aarch64-linux-gnu/bits/epoll.h
+  /usr/include/aarch64-linux-gnu/bits/epoll.h \
+  /usr/include/signal.h \
+  /usr/include/aarch64-linux-gnu/bits/signum-generic.h \
+  /usr/include/aarch64-linux-gnu/bits/signum-arch.h \
+  /usr/include/aarch64-linux-gnu/bits/types/sig_atomic_t.h \
+  /usr/include/aarch64-linux-gnu/bits/types/siginfo_t.h \
+  /usr/include/aarch64-linux-gnu/bits/types/__sigval_t.h \
+  /usr/include/aarch64-linux-gnu/bits/siginfo-arch.h \
+  /usr/include/aarch64-linux-gnu/bits/siginfo-consts.h \
+  /usr/include/aarch64-linux-gnu/bits/siginfo-consts-arch.h \
+  /usr/include/aarch64-linux-gnu/bits/types/sigval_t.h \
+  /usr/include/aarch64-linux-gnu/bits/types/sigevent_t.h \
+  /usr/include/aarch64-linux-gnu/bits/sigevent-consts.h \
+  /usr/include/aarch64-linux-gnu/bits/sigaction.h \
+  /usr/include/aarch64-linux-gnu/bits/sigcontext.h \
+  /usr/include/aarch64-linux-gnu/asm/sigcontext.h \
+  /usr/include/linux/types.h \
+  /usr/include/aarch64-linux-gnu/asm/types.h \
+  /usr/include/asm-generic/types.h \
+  /usr/include/asm-generic/int-ll64.h \
+  /usr/include/aarch64-linux-gnu/asm/sve_context.h \
+  /usr/include/aarch64-linux-gnu/bits/types/stack_t.h \
+  /usr/include/aarch64-linux-gnu/sys/ucontext.h \
+  /usr/include/aarch64-linux-gnu/sys/procfs.h \
+  /usr/include/aarch64-linux-gnu/sys/time.h \
+  /usr/include/aarch64-linux-gnu/sys/user.h \
+  /usr/include/aarch64-linux-gnu/bits/procfs.h \
+  /usr/include/aarch64-linux-gnu/bits/procfs-id.h \
+  /usr/include/aarch64-linux-gnu/bits/procfs-prregset.h \
+  /usr/include/aarch64-linux-gnu/bits/procfs-extra.h \
+  /usr/include/aarch64-linux-gnu/bits/sigstack.h \
+  /usr/include/aarch64-linux-gnu/bits/sigstksz.h \
+  /usr/include/aarch64-linux-gnu/bits/ss_flags.h \
+  /usr/include/aarch64-linux-gnu/bits/types/struct_sigstack.h \
+  /usr/include/aarch64-linux-gnu/bits/sigthread.h \
+  /usr/include/aarch64-linux-gnu/bits/signal_ext.h
 
+
+/usr/include/aarch64-linux-gnu/bits/sigthread.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/struct_sigstack.h:
+
+/usr/include/aarch64-linux-gnu/bits/ss_flags.h:
+
+/usr/include/aarch64-linux-gnu/bits/sigstksz.h:
+
+/usr/include/aarch64-linux-gnu/bits/procfs-prregset.h:
+
+/usr/include/aarch64-linux-gnu/bits/procfs.h:
+
+/usr/include/aarch64-linux-gnu/sys/user.h:
+
+/usr/include/aarch64-linux-gnu/sys/ucontext.h:
+
+/usr/include/aarch64-linux-gnu/sys/procfs.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/stack_t.h:
+
+/usr/include/linux/types.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/sigevent_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/siginfo-consts-arch.h:
+
+/usr/include/aarch64-linux-gnu/bits/siginfo-arch.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/__sigval_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/siginfo_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/sig_atomic_t.h:
+
+/usr/include/aarch64-linux-gnu/asm/sigcontext.h:
+
+/usr/include/aarch64-linux-gnu/bits/signum-arch.h:
+
+/usr/include/aarch64-linux-gnu/bits/signum-generic.h:
 
 ../ThreadPool.h:
 
@@ -1369,6 +1447,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/c++/11/bits/regex_compiler.h:
 
 /usr/include/c++/11/bits/regex_scanner.tcc:
+
+/usr/include/aarch64-linux-gnu/bits/sigaction.h:
 
 /usr/include/c++/11/bits/regex_error.h:
 
@@ -1408,6 +1488,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 
 /usr/include/c++/11/bits/ios_base.h:
 
+/usr/include/aarch64-linux-gnu/bits/procfs-id.h:
+
 /usr/include/c++/11/streambuf:
 
 /usr/include/c++/11/bits/streambuf_iterator.h:
@@ -1417,6 +1499,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/c++/11/bitset:
 
 /usr/include/c++/11/algorithm:
+
+/usr/include/aarch64-linux-gnu/bits/epoll.h:
 
 /usr/include/c++/11/cctype:
 
@@ -1438,6 +1522,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 
 /usr/include/aarch64-linux-gnu/c++/11/bits/c++allocator.h:
 
+/usr/include/aarch64-linux-gnu/bits/sigcontext.h:
+
 /usr/lib/gcc/aarch64-linux-gnu/11/include/stdint.h:
 
 /usr/include/aarch64-linux-gnu/bits/wctype-wchar.h:
@@ -1447,6 +1533,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/c++/11/cstdint:
 
 /usr/include/aarch64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/aarch64-linux-gnu/bits/signal_ext.h:
 
 /usr/include/aarch64-linux-gnu/bits/types/__FILE.h:
 
@@ -1554,6 +1642,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 
 /usr/include/aarch64-linux-gnu/sys/socket.h:
 
+/usr/include/signal.h:
+
 /usr/include/strings.h:
 
 /usr/include/aarch64-linux-gnu/bits/time64.h:
@@ -1569,6 +1659,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/c++/11/bits/cxxabi_forced.h:
 
 /usr/include/c++/11/ext/alloc_traits.h:
+
+/usr/include/aarch64-linux-gnu/asm/types.h:
 
 /usr/include/aarch64-linux-gnu/bits/stdint-uintn.h:
 
@@ -1621,6 +1713,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
 /usr/include/aarch64-linux-gnu/bits/libc-header-start.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/sigval_t.h:
 
 /usr/include/c++/11/ext/numeric_traits.h:
 
@@ -1680,6 +1774,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 
 /usr/include/c++/11/ext/atomicity.h:
 
+/usr/include/aarch64-linux-gnu/bits/sigevent-consts.h:
+
 /usr/include/aarch64-linux-gnu/gnu/stubs-lp64.h:
 
 /usr/include/aarch64-linux-gnu/sys/select.h:
@@ -1695,6 +1791,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/aarch64-linux-gnu/c++/11/bits/time_members.h:
 
 /usr/include/c++/11/limits:
+
+/usr/include/asm-generic/types.h:
 
 /usr/include/c++/11/bits/concept_check.h:
 
@@ -1723,6 +1821,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/aarch64-linux-gnu/bits/types/wint_t.h:
 
 /usr/include/locale.h:
+
+/usr/include/aarch64-linux-gnu/bits/procfs-extra.h:
 
 /usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h:
 
@@ -1760,6 +1860,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 
 /usr/include/aarch64-linux-gnu/bits/cpu-set.h:
 
+/usr/include/aarch64-linux-gnu/bits/siginfo-consts.h:
+
 /usr/include/c++/11/bits/shared_ptr_base.h:
 
 /usr/include/c++/11/bits/basic_string.h:
@@ -1779,6 +1881,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/aarch64-linux-gnu/bits/sched.h:
 
 /usr/include/aarch64-linux-gnu/bits/timex.h:
+
+/usr/include/aarch64-linux-gnu/bits/sigstack.h:
 
 /usr/lib/gcc/aarch64-linux-gnu/11/include/stddef.h:
 
@@ -1854,6 +1958,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 
 /usr/include/c++/11/utility:
 
+/usr/include/aarch64-linux-gnu/asm/sve_context.h:
+
 /usr/include/aarch64-linux-gnu/c++/11/bits/ctype_base.h:
 
 /usr/include/c++/11/functional:
@@ -1906,7 +2012,17 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 
 ../Thread.h:
 
+../Statistics.h:
+
+/usr/include/c++/11/bits/locale_facets.h:
+
+/usr/include/c++/11/bits/exception.h:
+
+/usr/include/aarch64-linux-gnu/sys/epoll.h:
+
 ../Callback.h:
+
+/usr/include/aarch64-linux-gnu/sys/time.h:
 
 /usr/include/c++/11/bits/regex_compiler.tcc:
 
@@ -1933,6 +2049,8 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/c++/11/bits/enable_special_members.h:
 
 /usr/include/c++/11/bits/unordered_map.h:
+
+/usr/include/asm-generic/int-ll64.h:
 
 /usr/include/c++/11/bits/stl_algo.h:
 
@@ -1985,11 +2103,3 @@ CMakeFiles/test.dir/tmp.cc.o: ../tmp.cc \
 /usr/include/c++/11/bits/uses_allocator.h:
 
 /usr/include/c++/11/bits/unique_lock.h:
-
-/usr/include/c++/11/bits/locale_facets.h:
-
-/usr/include/c++/11/bits/exception.h:
-
-/usr/include/aarch64-linux-gnu/sys/epoll.h:
-
-/usr/include/aarch64-linux-gnu/bits/epoll.h:

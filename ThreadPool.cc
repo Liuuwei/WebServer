@@ -25,14 +25,17 @@ void ThreadPool::start() {
     while (true) {
         int numEvents = ::epoll_wait(epollfd, &event, 1, -1);
         if (numEvents > 0) {
-            printf("new Conenction\n");
+            printf("new Conenction tid is %d\n", gettid());
             int connfd = ::accept(listenfd_, nullptr, nullptr);
+            printf("connfd is %d\n", connfd);
             std::shared_ptr<Thread> thread = getThread();
             epoll_event event;
             event.data.fd = connfd;
             event.events = EPOLLIN;
-            MutexLockGuard lock(thread->mutex_);
-            epoll_ctl(*thread->epollFd(), EPOLL_CTL_ADD, connfd, &event);
+            {
+                MutexLockGuard lock(thread->mutex_);
+                epoll_ctl(*thread->epollFd(), EPOLL_CTL_ADD, connfd, &event);
+            }
         } else {
             printf("%s:%s:%d\n", __FILE__, __FUNCTION__, __LINE__);
             exit(1);

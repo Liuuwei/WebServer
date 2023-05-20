@@ -1,8 +1,12 @@
 #include "ThreadPool.h"
+#include "Statistics.h"
 
-int main() {
+#include <signal.h>
+
+
+int main(int argc, char *argv[]) {
     ThreadPool threadPool;
-    threadPool.setThreadNums(5);
+    threadPool.setThreadNums(atoi(argv[1]));
     threadPool.begin();
     while (true);
     return 0;

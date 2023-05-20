@@ -9,6 +9,7 @@
 #include <string>
 #include <regex>
 
+extern long long files;
 
 Thread::Thread(int *epollfd) : epollfd_(epollfd), events_(1024), mutex_(), cond_(mutex_.mutex_) {
     printf("New Thread Create tid is ");
@@ -31,6 +32,7 @@ void Thread::start() {
             MutexLockGuard lock(mutex_);
             numEvents = ::epoll_wait(*epollfd_, &*events_.begin(), events_.size(), 1000);
         }
+        printf("numEvents %d\n", numEvents);
         if (numEvents > events_.size()) {
             events_.resize(events_.size() * 2);
         }
@@ -63,7 +65,6 @@ void Thread::handleRead(int fd) {
         return ;
     }
     std::string src(buf.begin(), buf.begin() + n);
-    //for (auto c : buf)printf("%c", c);
         
     std::string rmsg = "HTTP/1.1 200 OK\r\n";
     rmsg += "Server: WebServer\r\n";
@@ -114,6 +115,7 @@ void Thread::handleRead(int fd) {
         int len = ::fread(&*buf.begin(), 1, buf.size(), fp);
         if (len <= 0)break;
         send(fd, &*buf.begin(), len);
+        printf("send=======\n");
     }
 }
 
@@ -123,6 +125,7 @@ void Thread::send(int fd, const char *buf, int size) {
     while (n < size) {
         int len = ::send(fd, buf + n, size - n, 0);
         printf("send file size is %d\n", len);
+        files += len;
         if (len <= 0)break;
         n += len;
     }

@@ -10,6 +10,9 @@
 #include <memory>
 #include <thread>
 
+extern int connections;
+extern long long files;
+
 class ThreadPool {
     public:
         ThreadPool(const std::string ip = "10.211.55.3", int port = 9999);

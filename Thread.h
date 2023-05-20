@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Statistics.h"
 #include "Callback.h"
 #include "Buffer.h"
 #include "Mutex.h"
