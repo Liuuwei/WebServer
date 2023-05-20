@@ -3,6 +3,7 @@
 #include "Callback.h"
 #include "Buffer.h"
 #include "Mutex.h"
+#include "Cond.h"
 
 #include <unistd.h>
 
@@ -24,6 +25,7 @@ class Thread {
         int* epollFd() const { return epollfd_; };
         int tid() const { return tid_; }
         Mutex mutex_;
+        Cond cond_;
     private:
         void send(int fd, const char *buf, int size);
         void close(int fd);

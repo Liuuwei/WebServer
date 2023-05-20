@@ -10,8 +10,9 @@
 #include <regex>
 
 
-Thread::Thread(int *epollfd) : epollfd_(epollfd), events_(1024){
-    printf("New Thread Create\n");
+Thread::Thread(int *epollfd) : epollfd_(epollfd), events_(1024), mutex_(), cond_(mutex_.mutex_) {
+    printf("New Thread Create tid is ");
+    begin();
 }
 
 void Thread::begin() {
@@ -22,11 +23,12 @@ void Thread::begin() {
 
 void Thread::start() {
     tid_ = gettid();
+    printf("%d\n", tid_);
+    cond_.notify();
     while(true) {
         int numEvents = 0;
         {
             MutexLockGuard lock(mutex_);
-            printf("Thread lock tid is %d\n", tid_);
             numEvents = ::epoll_wait(*epollfd_, &*events_.begin(), events_.size(), 1000);
         }
         if (numEvents > events_.size()) {
@@ -113,7 +115,6 @@ void Thread::handleRead(int fd) {
         if (len <= 0)break;
         send(fd, &*buf.begin(), len);
     }
-    printf("tid : %d\n", gettid());
 }
 
 
@@ -121,7 +122,7 @@ void Thread::send(int fd, const char *buf, int size) {
     int n = 0;
     while (n < size) {
         int len = ::send(fd, buf + n, size - n, 0);
-        //printf("%d: %d\n", __LINE__, n);
+        printf("send file size is %d\n", len);
         if (len <= 0)break;
         n += len;
     }

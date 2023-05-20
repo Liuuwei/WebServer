@@ -13,8 +13,8 @@ class Mutex {
         void unlock() {
             pthread_mutex_unlock(&mutex_);
         }
+        pthread_mutex_t mutex_;
     private:
-    pthread_mutex_t mutex_;
 };
 
 class MutexLockGuard {

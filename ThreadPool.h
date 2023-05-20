@@ -1,12 +1,10 @@
 #pragma once
 
 #include "TcpServer.h"
-#include "Callback.h"
 #include "Thread.h"
 
 #include <sys/epoll.h>
 
-#include <functional>
 #include <vector>
 #include <string>
 #include <memory>
