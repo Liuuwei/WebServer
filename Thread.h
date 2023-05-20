@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Callback.h"
 #include "Buffer.h"
+#include "Mutex.h"
 
 #include <unistd.h>
 
@@ -20,12 +22,13 @@ class Thread {
         void start();
         void begin();
         int* epollFd() const { return epollfd_; };
-        int tid() const { return ::gettid(); }
-        std::mutex mutex_;
+        int tid() const { return tid_; }
+        Mutex mutex_;
     private:
         void send(int fd, const char *buf, int size);
         void close(int fd);
         int* epollfd_;
+        int tid_;
         std::shared_ptr<std::thread> thread_;
         std::vector<epoll_event> events_;
         void handleRead(int fd);

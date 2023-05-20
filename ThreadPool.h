@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TcpServer.h"
+#include "Callback.h"
 #include "Thread.h"
 
 #include <sys/epoll.h>
@@ -19,13 +20,13 @@ class ThreadPool {
         void begin();
         void start();
     private:
-        std::shared_ptr<Thread> getThread();
-        std::string ip_;
-        int port_;
-        int threadNums_;
-        int listenfd_;
-        std::vector<int> fds_;
-        std::vector<std::shared_ptr<Thread>> threads_;
-        TcpServer server_;
         int next_;
+        int port_;
+        int listenfd_;
+        int threadNums_;
+        std::string ip_;
+        TcpServer server_;
+        std::vector<int> fds_;
+        std::shared_ptr<Thread> getThread();
+        std::vector<std::shared_ptr<Thread>> threads_;
 };

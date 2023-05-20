@@ -1,4 +1,5 @@
 #include "Thread.h"
+#include "Mutex.h"
 
 #include <sys/socket.h>
 #include <sys/epoll.h>
@@ -20,9 +21,14 @@ void Thread::begin() {
 }
 
 void Thread::start() {
+    tid_ = gettid();
     while(true) {
         int numEvents = 0;
-        numEvents = ::epoll_wait(*epollfd_, &*events_.begin(), events_.size(), 1000);
+        {
+            MutexLockGuard lock(mutex_);
+            printf("Thread lock tid is %d\n", tid_);
+            numEvents = ::epoll_wait(*epollfd_, &*events_.begin(), events_.size(), 1000);
+        }
         if (numEvents > events_.size()) {
             events_.resize(events_.size() * 2);
         }
@@ -97,7 +103,7 @@ void Thread::handleRead(int fd) {
     fseek(fp, 0, SEEK_END);
     fileSize = ftell(fp);
     fseek(fp, 0, 0);
-    printf("filesize is %d\n", fileSize);
+    //printf("filesize is %d\n", fileSize);
     rmsg += std::to_string(fileSize);
     rmsg += "\r\n\r\n";
     send(fd, rmsg.c_str(), rmsg.size());
@@ -115,7 +121,7 @@ void Thread::send(int fd, const char *buf, int size) {
     int n = 0;
     while (n < size) {
         int len = ::send(fd, buf + n, size - n, 0);
-        printf("%d: %d\n", __LINE__, n);
+        //printf("%d: %d\n", __LINE__, n);
         if (len <= 0)break;
         n += len;
     }
