@@ -1,0 +1,8 @@
+/home/parallels/clion/WebServer/build/CMakeFiles/edit_cache.dir
+/home/parallels/clion/WebServer/build/CMakeFiles/rebuild_cache.dir
+/home/parallels/clion/WebServer/build/src/CMakeFiles/WebServer.dir
+/home/parallels/clion/WebServer/build/src/CMakeFiles/edit_cache.dir
+/home/parallels/clion/WebServer/build/src/CMakeFiles/rebuild_cache.dir
+/home/parallels/clion/WebServer/build/test/CMakeFiles/test.dir
+/home/parallels/clion/WebServer/build/test/CMakeFiles/edit_cache.dir
+/home/parallels/clion/WebServer/build/test/CMakeFiles/rebuild_cache.dir
