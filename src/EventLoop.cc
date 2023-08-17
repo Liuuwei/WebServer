@@ -21,7 +21,7 @@ void EventLoop::loop() {
 }
 
 void EventLoop::runInLoop(Functor cb) {
-    std::unique_lock lock(mutex_);
+    std::unique_lock lock(funMutex_);
     functors_.push_back(std::move(cb));
     if (!isInLoopThread()) {
         wakeUp();
@@ -51,11 +51,23 @@ void EventLoop::wakeUp() const {
 }
 
 void EventLoop::doFunctors() {
-    std::unique_lock lock(mutex_);
+    std::unique_lock lock(funMutex_);
     std::vector<std::function<void()>> newFunctors;
     functors_.swap(newFunctors);
     lock.unlock();
     for (const auto & newFunctor : newFunctors) {
         newFunctor();
+    }
+}
+
+void EventLoop::addTcp(std::shared_ptr<TcpConnection> tcp) {
+    std::unique_lock lock(tcpMutex_);
+    tcps_.insert({tcp->fd(), tcp});
+}
+
+void EventLoop::removeTcp(int fd) {
+    std::unique_lock lock(tcpMutex_);
+    if (tcps_.find(fd) != tcps_.end()) {
+        tcps_.erase(fd);
     }
 }

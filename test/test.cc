@@ -20,7 +20,7 @@ int main() {
     InetAddr addr;
     TcpServer server(&loop, addr);
     server.setOnMessageCallback(onMessage);
-    server.setThreadNums(5);
+    server.setThreadNums(1);
     server.start();
     loop.loop();
 }

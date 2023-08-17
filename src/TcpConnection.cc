@@ -1,14 +1,15 @@
 #include "TcpConnection.h"
+#include "EventLoop.h"
 
 #include <unistd.h>
 
-TcpConnection::TcpConnection(EventLoop* loop, int fd) : channel_(loop, fd) {
+TcpConnection::TcpConnection(EventLoop* loop, int fd) : loop_(loop), channel_(loop, fd) {
     channel_.setReadCallback(std::bind(&TcpConnection::handleRead, this));
     channel_.setWriteCallback(std::bind(&TcpConnection::handleWrite, this));
 }
 
 TcpConnection::~TcpConnection() {
-
+    LOG("Close one TcpConnection");
 }
 
 void TcpConnection::start() {
@@ -17,6 +18,7 @@ void TcpConnection::start() {
 
 void TcpConnection::setMessageCallback(MessageCallback cb) {
     messageCallback_ = cb;
+    loop_->addTcp(shared_from_this());
     start();
 }
 
@@ -40,6 +42,9 @@ void TcpConnection::handleWrite() {
 void TcpConnection::handleClose() {
     LOG("handleClose");
     channel_.shutdown();
+    loop_->runInLoop([&]() {
+        loop_->removeTcp(fd());
+    });
 }
 
 void TcpConnection::send(const std::string& msg) {

@@ -39,5 +39,4 @@ void TcpServer::newTcpConnection() {
     LOG("connect one new client %d", fd);
     std::shared_ptr<TcpConnection> conn(new TcpConnection(threadPoll_->getOneLoop(), fd));
     conn->setMessageCallback(onMessageCallback_);
-    tcpConnections_.push_back(conn);
 }
