@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="hw (b2b4f98f-9253-4bd5-aa7e-d1cc90b6b58a)" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
+    <option name="confirmBeforeUploading" value="false" />
     <serverData>
+      <paths name="hw (b2b4f98f-9253-4bd5-aa7e-d1cc90b6b58a)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/clion" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-hw" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-para" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
       <paths name="para (acfd2fa3-7c49-434c-b7c0-002ee2b4c0c0)">
         <serverdata>
           <mappings>
@@ -9,10 +22,12 @@
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-hw" />
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-para" />
           </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

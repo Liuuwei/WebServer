@@ -3,13 +3,14 @@
 //
 
 #include "Thread.h"
+#include "Log.h"
 #include "EventLoop.h"
 
 #include <thread>
 
 Thread::Thread(EventLoop** loop, std::binary_semaphore& sem) {
     std::thread t([&]() {
-        LOG("Create a new Thread %d", gettid());
+        Log::Instance()->LOG("Create a new Thread %d", gettid());
         auto loop_ = new EventLoop;
         *loop = loop_;
         sem.release();

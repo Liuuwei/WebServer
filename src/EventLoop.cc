@@ -1,4 +1,5 @@
 #include "EventLoop.h"
+#include "Log.h"
 
 #include <sys/eventfd.h>
 #include <sys/types.h>
@@ -68,6 +69,7 @@ void EventLoop::addTcp(std::shared_ptr<TcpConnection> tcp) {
 void EventLoop::removeTcp(int fd) {
     std::unique_lock lock(tcpMutex_);
     if (tcps_.find(fd) != tcps_.end()) {
+        poll_.removeChannel(tcps_[fd]->channel());
         tcps_.erase(fd);
     }
 }

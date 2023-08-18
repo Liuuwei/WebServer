@@ -18,6 +18,7 @@ public:
     void setMessageCallback(MessageCallback cb);
     void send(const std::string& msg);
     int fd() const { return channel_.fd(); }
+    Channel* channel() { return &channel_; }
 private:
     EventLoop* loop_;
     Channel channel_;

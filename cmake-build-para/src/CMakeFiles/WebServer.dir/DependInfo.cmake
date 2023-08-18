@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/tmp/tmp.iLpwI6OpNd/src/EventLoop.cc" "src/CMakeFiles/WebServer.dir/EventLoop.cc.o" "gcc" "src/CMakeFiles/WebServer.dir/EventLoop.cc.o.d"
   "/tmp/tmp.iLpwI6OpNd/src/HTTP.cc" "src/CMakeFiles/WebServer.dir/HTTP.cc.o" "gcc" "src/CMakeFiles/WebServer.dir/HTTP.cc.o.d"
   "/tmp/tmp.iLpwI6OpNd/src/InetAddr.cc" "src/CMakeFiles/WebServer.dir/InetAddr.cc.o" "gcc" "src/CMakeFiles/WebServer.dir/InetAddr.cc.o.d"
+  "/tmp/tmp.iLpwI6OpNd/src/Log.cc" "src/CMakeFiles/WebServer.dir/Log.cc.o" "gcc" "src/CMakeFiles/WebServer.dir/Log.cc.o.d"
   "/tmp/tmp.iLpwI6OpNd/src/Mutex.cc" "src/CMakeFiles/WebServer.dir/Mutex.cc.o" "gcc" "src/CMakeFiles/WebServer.dir/Mutex.cc.o.d"
   "/tmp/tmp.iLpwI6OpNd/src/Poll.cc" "src/CMakeFiles/WebServer.dir/Poll.cc.o" "gcc" "src/CMakeFiles/WebServer.dir/Poll.cc.o.d"
   "/tmp/tmp.iLpwI6OpNd/src/TcpConnection.cc" "src/CMakeFiles/WebServer.dir/TcpConnection.cc.o" "gcc" "src/CMakeFiles/WebServer.dir/TcpConnection.cc.o.d"

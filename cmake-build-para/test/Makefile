@@ -144,6 +144,20 @@ http/fast:
 	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/http.dir/build.make test/CMakeFiles/http.dir/build
 .PHONY : http/fast
 
+# Convenience name for target.
+test/CMakeFiles/main.dir/rule:
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/main.dir/rule
+.PHONY : test/CMakeFiles/main.dir/rule
+
+# Convenience name for target.
+main: test/CMakeFiles/main.dir/rule
+.PHONY : main
+
+# fast build rule for target.
+main/fast:
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/main.dir/build.make test/CMakeFiles/main.dir/build
+.PHONY : main/fast
+
 http.o: http.cc.o
 .PHONY : http.o
 
@@ -167,6 +181,30 @@ http.s: http.cc.s
 http.cc.s:
 	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/http.dir/build.make test/CMakeFiles/http.dir/http.cc.s
 .PHONY : http.cc.s
+
+main.o: main.cc.o
+.PHONY : main.o
+
+# target to build an object file
+main.cc.o:
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/main.dir/build.make test/CMakeFiles/main.dir/main.cc.o
+.PHONY : main.cc.o
+
+main.i: main.cc.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cc.i:
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/main.dir/build.make test/CMakeFiles/main.dir/main.cc.i
+.PHONY : main.cc.i
+
+main.s: main.cc.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cc.s:
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/main.dir/build.make test/CMakeFiles/main.dir/main.cc.s
+.PHONY : main.cc.s
 
 test.o: test.cc.o
 .PHONY : test.o
@@ -201,10 +239,14 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... http"
+	@echo "... main"
 	@echo "... test"
 	@echo "... http.o"
 	@echo "... http.i"
 	@echo "... http.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"

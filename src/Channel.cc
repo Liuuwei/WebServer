@@ -60,8 +60,13 @@ void Channel::handleEvent() {
 }
 
 void Channel::shutdown() {
-    unableRead();
+    unableAll();
     loop_->runInLoop([&]() {
         ::shutdown(fd_, SHUT_RD);
     });
+}
+
+void Channel::unableAll() {
+    events_ = 0;
+    update();
 }

@@ -3,6 +3,8 @@
 #include "EventLoop.h"
 #include "ThreadPoll.h"
 #include "HTTP.h"
+#include <thread>
+#include "Log.h"
 
 
 void onMessage(const std::shared_ptr<TcpConnection>& conn, Buffer* buffer) {

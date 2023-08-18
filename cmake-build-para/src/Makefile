@@ -274,6 +274,30 @@ InetAddr.cc.s:
 	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/WebServer.dir/build.make src/CMakeFiles/WebServer.dir/InetAddr.cc.s
 .PHONY : InetAddr.cc.s
 
+Log.o: Log.cc.o
+.PHONY : Log.o
+
+# target to build an object file
+Log.cc.o:
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/WebServer.dir/build.make src/CMakeFiles/WebServer.dir/Log.cc.o
+.PHONY : Log.cc.o
+
+Log.i: Log.cc.i
+.PHONY : Log.i
+
+# target to preprocess a source file
+Log.cc.i:
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/WebServer.dir/build.make src/CMakeFiles/WebServer.dir/Log.cc.i
+.PHONY : Log.cc.i
+
+Log.s: Log.cc.s
+.PHONY : Log.s
+
+# target to generate assembly for a file
+Log.cc.s:
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/WebServer.dir/build.make src/CMakeFiles/WebServer.dir/Log.cc.s
+.PHONY : Log.cc.s
+
 Mutex.o: Mutex.cc.o
 .PHONY : Mutex.o
 
@@ -445,6 +469,9 @@ help:
 	@echo "... InetAddr.o"
 	@echo "... InetAddr.i"
 	@echo "... InetAddr.s"
+	@echo "... Log.o"
+	@echo "... Log.i"
+	@echo "... Log.s"
 	@echo "... Mutex.o"
 	@echo "... Mutex.i"
 	@echo "... Mutex.s"

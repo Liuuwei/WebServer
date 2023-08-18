@@ -8,7 +8,7 @@
 
 class InetAddr {
 public:
-    InetAddr(std::string ip = "10.211.55.3", int port = 9999);
+    InetAddr(std::string ip = "192.168.0.165", int port = 80);
     ~InetAddr();
     std::string ip() const {
         return ip_;

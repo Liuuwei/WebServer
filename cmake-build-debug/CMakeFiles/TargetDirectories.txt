@@ -5,5 +5,6 @@
 /Users/liuwei/CLionProjects/WebServer/cmake-build-debug/src/CMakeFiles/rebuild_cache.dir
 /Users/liuwei/CLionProjects/WebServer/cmake-build-debug/test/CMakeFiles/test.dir
 /Users/liuwei/CLionProjects/WebServer/cmake-build-debug/test/CMakeFiles/http.dir
+/Users/liuwei/CLionProjects/WebServer/cmake-build-debug/test/CMakeFiles/main.dir
 /Users/liuwei/CLionProjects/WebServer/cmake-build-debug/test/CMakeFiles/edit_cache.dir
 /Users/liuwei/CLionProjects/WebServer/cmake-build-debug/test/CMakeFiles/rebuild_cache.dir

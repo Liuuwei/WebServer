@@ -1,5 +1,5 @@
 #include "Buffer.h"
-#include "Util.h"
+#include "Log.h"
 
 #include <sys/uio.h>
 #include <assert.h>
@@ -56,7 +56,7 @@ std::string Buffer::retriveSome(int size) {
 int Buffer::readFd(int fd) {
     char extraBuf[65536];
     struct iovec vec[2];
-    const size_t writeAble = writeAblyBytes();
+    const int writeAble = writeAblyBytes();
     vec[0].iov_base = &*buffer_.begin() + writeIndex_;
     vec[0].iov_len = writeAble;
     vec[1].iov_base = extraBuf;
@@ -64,7 +64,7 @@ int Buffer::readFd(int fd) {
 
     const ssize_t n = ::readv(fd, vec, 2);
     if (n == -1) {
-        DEBUG();
+        return -1;
     }
     if (n > writeAble) {
         std::cout << n << " " << writeAble << std::endl;
@@ -80,7 +80,7 @@ int Buffer::writeFd(int fd) {
     std::string msg = retriveAll();
     ssize_t n = ::write(fd, &*msg.begin(), msg.size());
     if (n == -1) {
-        DEBUG();
+        Log::Instance()->DEBUG("write -1");
     }
     if (n < msg.size()) {
         append(std::string(msg.begin() + n, msg.end()));
@@ -90,7 +90,7 @@ int Buffer::writeFd(int fd) {
 
 char Buffer::getChar(int index) {
     if (index < readIndex_ || index > readIndex_ + readAbleBytes()) {
-        DEBUG("GetChar index out of range");
+        Log::Instance()->DEBUG("GetChar index out of range");
     }
     return buffer_[index];
 }

@@ -1,6 +1,7 @@
 #include "TcpServer.h"
 
 #include <signal.h>
+#include "Log.h"
 
 TcpServer::TcpServer(EventLoop* loop, InetAddr addr) : loop_(loop), listenFd_(addr.listenFd()), listenChannel_(new Channel(loop, listenFd_)), threadNums_(0), threadPoll_(
         nullptr) {
@@ -32,11 +33,15 @@ void TcpServer::setOnMessageCallback(const MessageCallback & cb) {
 void TcpServer::setThreadNums(int nums) {
     threadNums_ = nums;
     threadPoll_ = new ThreadPoll(threadNums_);
+    std::thread t([&]() {
+        Log::Instance()->start();
+    });
+    t.detach();
 }
 
 void TcpServer::newTcpConnection() {
     int fd = acceptor_.acceptNew();
-    LOG("connect one new client %d", fd);
+    Log::Instance()->LOG("connect one new client %d", fd);
     std::shared_ptr<TcpConnection> conn(new TcpConnection(threadPoll_->getOneLoop(), fd));
     conn->setMessageCallback(onMessageCallback_);
 }

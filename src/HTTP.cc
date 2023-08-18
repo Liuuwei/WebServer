@@ -2,7 +2,7 @@
 // Created by Liuwei on 2023/8/6.
 //
 #include "HTTP.h"
-#include "Util.h"
+#include "Log.h"
 
 #include <unistd.h>
 
@@ -17,10 +17,12 @@ HTTP::~HTTP() {
 request HTTP::parse(const std::string& url) {
     std::smatch result;
     std::regex_match(url, result, httpRegex_);
-    if (result.size() != 3) {
-        DEBUG("HTTP::parse failed: %s", url.c_str());
-    }
     request ret;
+    if (result.size() != 3) {
+        Log::Instance()->DEBUG("HTTP::parse failed: %s", url.c_str());
+        ret.method = std::string("GET");
+        ret.resource = std::string("index.html");
+    }
     ret.method = result[1].str();
     ret.resource = result[2].str();
     return ret;
@@ -35,7 +37,7 @@ std::string HTTP::generate(const request& request) {
     } else {
         path += "/index.html";
     }
-    LOG("path: %s", path.c_str());
+    Log::Instance()->LOG("path: %s", path.c_str());
     FILE* fp = fopen(path.c_str(), "r");
     std::string body;
     if (fp == nullptr) {

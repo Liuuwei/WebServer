@@ -1,5 +1,6 @@
 #include "TcpConnection.h"
 #include "EventLoop.h"
+#include "Log.h"
 
 #include <unistd.h>
 
@@ -9,7 +10,6 @@ TcpConnection::TcpConnection(EventLoop* loop, int fd) : loop_(loop), channel_(lo
 }
 
 TcpConnection::~TcpConnection() {
-    LOG("Close one TcpConnection");
 }
 
 void TcpConnection::start() {
@@ -25,7 +25,7 @@ void TcpConnection::setMessageCallback(MessageCallback cb) {
 void TcpConnection::handleRead() {
     ssize_t n = inputBuffer_.readFd(channel_.fd());
     if (n == -1) {
-        DEBUG();
+        Log::Instance()->DEBUG("readFd is -1");
     }
     if (n > 0) {
         messageCallback_(shared_from_this(), &inputBuffer_);
@@ -36,11 +36,14 @@ void TcpConnection::handleRead() {
 }
 
 void TcpConnection::handleWrite() {
-
+    ssize_t sendAble = outputBuffer_.readAbleBytes();
+    ssize_t n = outputBuffer_.writeFd(channel_.fd());
+    if (n == sendAble) {
+        channel_.unableWrite();
+    }
 }
 
 void TcpConnection::handleClose() {
-    LOG("handleClose");
     channel_.shutdown();
     loop_->runInLoop([&]() {
         loop_->removeTcp(fd());
@@ -48,11 +51,14 @@ void TcpConnection::handleClose() {
 }
 
 void TcpConnection::send(const std::string& msg) {
-    outputBuffer_.append(msg);
+    if (!msg.empty())
+        outputBuffer_.append(msg);
     ssize_t sendAble = outputBuffer_.readAbleBytes();
     ssize_t n = outputBuffer_.writeFd(channel_.fd());
-    LOG("send %d bytes", n);
+    Log::Instance()->LOG("send %d bytes", n);
     if (n == sendAble) {
         channel_.unableRevents(EPOLLOUT);
+    } else {
+        channel_.enableWrite();
     }
 }

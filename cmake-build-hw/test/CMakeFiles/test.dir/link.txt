@@ -1,0 +1,1 @@
+/usr/bin/g++  -g -g CMakeFiles/test.dir/test.cc.o -o ../../bin/test   -L/clion/lib  -Wl,-rpath,/clion/lib ../../lib/libWebServer.a 

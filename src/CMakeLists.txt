@@ -11,4 +11,5 @@ add_library(WebServer
         ThreadPoll.cc
         HTTP.cc
         Mutex.cc
+        Log.cc
 )

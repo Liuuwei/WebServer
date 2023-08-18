@@ -1,0 +1,1 @@
+/usr/bin/c++  -g -O3 -DNDEBUG CMakeFiles/main.dir/main.cc.o -o ../../bin/main   -L/tmp/tmp.iLpwI6OpNd/lib 

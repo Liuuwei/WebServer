@@ -1,0 +1,1 @@
+/usr/bin/g++  -g -g CMakeFiles/main.dir/main.cc.o -o ../../bin/main   -L/clion/lib 

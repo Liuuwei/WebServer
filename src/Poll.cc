@@ -1,5 +1,5 @@
 #include "Poll.h"
-#include "Util.h"
+#include "Log.h"
 
 #include <assert.h>
 #include <string.h>
@@ -16,9 +16,8 @@ Poll::~Poll() {
 void Poll::poll() {
     int ret = epoll_wait(epollFd_, &*events_.begin(), events_.size(), -1);
     if (ret == -1) {
-        DEBUG();
+        Log::Instance()->DEBUG("epoll_wait is -1");
     }
-    LOG("trigger %d events in %d", ret, gettid());
     fillActiveChannel(ret);
 }
 
@@ -28,7 +27,7 @@ void Poll::fillActiveChannel(int ret) {
         std::string event;
         if (events_[i].events | EPOLLIN) event += "EPOLLIN ";
         if (events_[i].events | EPOLLOUT) event += "EPOLLOUT";
-        LOG("fd: %d events: %s", fd, event.c_str());
+        Log::Instance()->LOG("fd: %d events: %s", fd, event.c_str());
         channelMaps_[fd]->setRevents(events_[i].events);
         activeChannels_.push_back(channelMaps_[fd]);
     }
@@ -53,7 +52,9 @@ void Poll::updateChannel(Channel* channel) {
 }
 
 void Poll::removeChannel(Channel* channel) {
-    channelMaps_.erase(channel->fd());
+    if (channelMaps_.find(channel->fd()) != channelMaps_.end()) {
+        channelMaps_.erase(channel->fd());
+    }
     update(EPOLL_CTL_DEL, channel);
 }
 

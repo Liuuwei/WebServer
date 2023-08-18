@@ -155,6 +155,19 @@ http/fast:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/http.dir/build.make test/CMakeFiles/http.dir/build
 .PHONY : http/fast
 
+#=============================================================================
+# Target rules for targets named main
+
+# Build rule for target.
+main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
+.PHONY : main
+
+# fast build rule for target.
+main/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/main.dir/build.make test/CMakeFiles/main.dir/build
+.PHONY : main/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,6 +178,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... WebServer"
 	@echo "... http"
+	@echo "... main"
 	@echo "... test"
 .PHONY : help
 

@@ -1,0 +1,10 @@
+/clion/cmake-build-hw/CMakeFiles/edit_cache.dir
+/clion/cmake-build-hw/CMakeFiles/rebuild_cache.dir
+/clion/cmake-build-hw/src/CMakeFiles/WebServer.dir
+/clion/cmake-build-hw/src/CMakeFiles/edit_cache.dir
+/clion/cmake-build-hw/src/CMakeFiles/rebuild_cache.dir
+/clion/cmake-build-hw/test/CMakeFiles/test.dir
+/clion/cmake-build-hw/test/CMakeFiles/http.dir
+/clion/cmake-build-hw/test/CMakeFiles/main.dir
+/clion/cmake-build-hw/test/CMakeFiles/edit_cache.dir
+/clion/cmake-build-hw/test/CMakeFiles/rebuild_cache.dir

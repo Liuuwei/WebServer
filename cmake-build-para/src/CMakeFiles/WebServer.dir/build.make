@@ -237,6 +237,20 @@ src/CMakeFiles/WebServer.dir/Mutex.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/WebServer.dir/Mutex.cc.s"
 	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.iLpwI6OpNd/src/Mutex.cc -o CMakeFiles/WebServer.dir/Mutex.cc.s
 
+src/CMakeFiles/WebServer.dir/Log.cc.o: src/CMakeFiles/WebServer.dir/flags.make
+src/CMakeFiles/WebServer.dir/Log.cc.o: ../src/Log.cc
+src/CMakeFiles/WebServer.dir/Log.cc.o: src/CMakeFiles/WebServer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/tmp/tmp.iLpwI6OpNd/cmake-build-para/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object src/CMakeFiles/WebServer.dir/Log.cc.o"
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/WebServer.dir/Log.cc.o -MF CMakeFiles/WebServer.dir/Log.cc.o.d -o CMakeFiles/WebServer.dir/Log.cc.o -c /tmp/tmp.iLpwI6OpNd/src/Log.cc
+
+src/CMakeFiles/WebServer.dir/Log.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/WebServer.dir/Log.cc.i"
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.iLpwI6OpNd/src/Log.cc > CMakeFiles/WebServer.dir/Log.cc.i
+
+src/CMakeFiles/WebServer.dir/Log.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/WebServer.dir/Log.cc.s"
+	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.iLpwI6OpNd/src/Log.cc -o CMakeFiles/WebServer.dir/Log.cc.s
+
 # Object files for target WebServer
 WebServer_OBJECTS = \
 "CMakeFiles/WebServer.dir/Thread.cc.o" \
@@ -250,7 +264,8 @@ WebServer_OBJECTS = \
 "CMakeFiles/WebServer.dir/TcpServer.cc.o" \
 "CMakeFiles/WebServer.dir/ThreadPoll.cc.o" \
 "CMakeFiles/WebServer.dir/HTTP.cc.o" \
-"CMakeFiles/WebServer.dir/Mutex.cc.o"
+"CMakeFiles/WebServer.dir/Mutex.cc.o" \
+"CMakeFiles/WebServer.dir/Log.cc.o"
 
 # External object files for target WebServer
 WebServer_EXTERNAL_OBJECTS =
@@ -267,9 +282,10 @@ WebServer_EXTERNAL_OBJECTS =
 ../lib/libWebServer.a: src/CMakeFiles/WebServer.dir/ThreadPoll.cc.o
 ../lib/libWebServer.a: src/CMakeFiles/WebServer.dir/HTTP.cc.o
 ../lib/libWebServer.a: src/CMakeFiles/WebServer.dir/Mutex.cc.o
+../lib/libWebServer.a: src/CMakeFiles/WebServer.dir/Log.cc.o
 ../lib/libWebServer.a: src/CMakeFiles/WebServer.dir/build.make
 ../lib/libWebServer.a: src/CMakeFiles/WebServer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/tmp/tmp.iLpwI6OpNd/cmake-build-para/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX static library ../../lib/libWebServer.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/tmp/tmp.iLpwI6OpNd/cmake-build-para/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX static library ../../lib/libWebServer.a"
 	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para/src && $(CMAKE_COMMAND) -P CMakeFiles/WebServer.dir/cmake_clean_target.cmake
 	cd /tmp/tmp.iLpwI6OpNd/cmake-build-para/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/WebServer.dir/link.txt --verbose=$(VERBOSE)
 

@@ -23,6 +23,7 @@ public:
     void enableWrite();
     void unableRead();
     void unableWrite();
+    void unableAll();
     void setReadCallback(std::function<void()> cb);
     void setWriteCallback(std::function<void()> cb);
     void setRevents(int events);
