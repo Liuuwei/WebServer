@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libWebServer.a CMakeFiles/WebServer.dir/Thread.cc.o CMakeFiles/WebServer.dir/Acceptor.cc.o CMakeFiles/WebServer.dir/Buffer.cc.o CMakeFiles/WebServer.dir/Channel.cc.o CMakeFiles/WebServer.dir/EventLoop.cc.o CMakeFiles/WebServer.dir/InetAddr.cc.o CMakeFiles/WebServer.dir/Poll.cc.o CMakeFiles/WebServer.dir/TcpConnection.cc.o CMakeFiles/WebServer.dir/TcpServer.cc.o CMakeFiles/WebServer.dir/ThreadPoll.cc.o CMakeFiles/WebServer.dir/HTTP.cc.o CMakeFiles/WebServer.dir/Mutex.cc.o
-/usr/bin/ranlib ../../lib/libWebServer.a

@@ -1,1 +1,0 @@
-/usr/bin/g++  -g -g CMakeFiles/http.dir/http.cc.o -o ../../bin/http   -L/home/parallels/clion/WebServer/lib  -Wl,-rpath,/home/parallels/clion/WebServer/lib ../../lib/libWebServer.a 

@@ -3,10 +3,13 @@
 
 #include <sys/eventfd.h>
 #include <sys/types.h>
+#include <sys/timerfd.h>
 
-EventLoop::EventLoop() : threadId_(gettid()), wakeUpFd_(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC)), wakeUpChannel_(this, wakeUpFd_){
+EventLoop::EventLoop() : threadId_(gettid()), wakeUpFd_(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC)), wakeUpChannel_(this, wakeUpFd_),
+                         timeFd_(timerfd_create(CLOCK_REALTIME, TFD_NONBLOCK)), timeChannel_(this, timeFd_) {
     wakeUpChannel_.setReadCallback(std::bind(&EventLoop::handleRead, this));
     wakeUpChannel_.enableRead();
+    timeChannel_.setReadCallback(std::bind(&EventLoop::handleTimer, this));
     poll_.updateChannel(&wakeUpChannel_);
 }
 
@@ -46,6 +49,14 @@ void EventLoop::handleRead() const {
     ssize_t n = read(wakeUpFd_, &one, sizeof(one));
 }
 
+void EventLoop::handleTimer() {
+    uint64_t one = 1;
+    ssize_t n = read(timeFd_, &one, sizeof(one));
+    if (timerCallback_) {
+        timerCallback_();
+    }
+}
+
 void EventLoop::wakeUp() const {
     uint64_t one = 1;
     ssize_t n = write(wakeUpFd_, &one, sizeof(one));
@@ -58,6 +69,14 @@ void EventLoop::doFunctors() {
     lock.unlock();
     for (const auto & newFunctor : newFunctors) {
         newFunctor();
+    }
+    timeval time;
+    gettimeofday(&time, nullptr);
+    long int curTime = time.tv_sec;
+    for (auto it = tcps_.begin(); it != tcps_.end(); ++it) {
+        if (it->second->time_.tv_sec < curTime - 8) {
+            it->second->handleClose();
+        }
     }
 }
 
@@ -72,4 +91,26 @@ void EventLoop::removeTcp(int fd) {
         poll_.removeChannel(tcps_[fd]->channel());
         tcps_.erase(fd);
     }
+}
+
+void EventLoop::runAt(const itimerspec& time, std::function<void()> cb) {
+    if (cb) {
+        timerCallback_ = std::move(cb);
+    }
+    if (timerfd_settime(timeFd_, 0, &time, nullptr) == -1) {
+        Log::Instance()->DEBUG("timerfd_settime failed %d", timeFd_);
+    }
+    timeChannel_.enableRead();
+}
+
+void EventLoop::closeTimer() {
+    itimerspec time{};
+    time.it_value.tv_sec = 0;
+    time.it_value.tv_nsec = 0;
+    time.it_interval.tv_sec = 0;
+    time.it_interval.tv_nsec = 0;
+    if (timerfd_settime(timeFd_, 0, &time, nullptr) == -1) {
+        Log::Instance()->DEBUG("timerfd_settime failed %d", timeFd_);
+    }
+    timeChannel_.unableRead();
 }
