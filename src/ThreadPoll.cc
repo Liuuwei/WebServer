@@ -2,7 +2,7 @@
 #include "Util.h"
 #include "EventLoop.h"
 
-ThreadPoll::ThreadPoll(int nums) : mark_(0), nums_(nums), threads_(nums), loops_(nums), sem_(0){
+ThreadPoll::ThreadPoll(int nums, EventLoop* loop) : mark_(0), nums_(nums), threads_(nums), loops_(nums), sem_(0), loop_(loop){
     for (int i = 0; i < nums; i++) {
         EventLoop* loop = nullptr;
         auto thread = new Thread(&loop, sem_);
@@ -21,6 +21,9 @@ ThreadPoll::~ThreadPoll() {
 }
 
 EventLoop* ThreadPoll::getOneLoop() {
+    if (nums_ == 0) {
+        return loop_;
+    }
     EventLoop* loop = loops_[mark_];
     mark_ = (mark_ + 1) % nums_;
     return loop;

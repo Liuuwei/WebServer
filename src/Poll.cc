@@ -27,7 +27,7 @@ void Poll::fillActiveChannel(int ret) {
         std::string event;
         if (events_[i].events | EPOLLIN) event += "EPOLLIN ";
         if (events_[i].events | EPOLLOUT) event += "EPOLLOUT";
-        Log::Instance()->LOG("fd: %d events: %s", fd, event.c_str());
+        Log::Instance()->LOG("ip: %s events: %s", channelMaps_[fd]->ip().c_str(), event.c_str());
         channelMaps_[fd]->setRevents(events_[i].events);
         activeChannels_.push_back(channelMaps_[fd]);
     }

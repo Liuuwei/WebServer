@@ -5,6 +5,8 @@
 #include "Log.h"
 
 #include <unistd.h>
+#include <fstream>
+#include <algorithm>
 
 HTTP::HTTP() {
 
@@ -28,7 +30,7 @@ request HTTP::parse(const std::string& url) {
     return ret;
 }
 
-std::string HTTP::generate(const request& request) {
+std::string HTTP::generate(request& request) {
     std::string ret = "HTTP/1.1 200 OK\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: ";
 
     std::string path = "../www";
@@ -41,18 +43,53 @@ std::string HTTP::generate(const request& request) {
     FILE* fp = fopen(path.c_str(), "r");
     std::string body;
     if (fp == nullptr) {
-        body = "404 Not Found";
-    } else {
-        char buf[65536]{};
-        ssize_t n = 0;
-        while ((n = fread(buf, 1, sizeof(buf), fp)) > 0) {
-            body += std::string(buf, n);
+        path = "log/" + request.resource;
+        fp = fopen(path.c_str(), "r");
+        if (fp == nullptr) {
+            body = "404 Not Found";
+        } else { // 打开本地普通文件
+            std::ifstream file(path);
+            std::string line;
+            while (std::getline(file, line)) {
+                body += line + "<br>";
+            }
+            file.close();
         }
+    }  else { // 打开本地的html文件
+        std::ifstream file(path);
+        std::string line;
+        while (std::getline(file, line)) {
+            body += line;
+        }
+        file.close();
     }
+
     ret += std::to_string(body.size());
     ret += "\r\n\r\n";
     ret += body;
     return ret;
+}
+
+std::string HTTP::generate(const std::string& msg) {
+    std::string ret = "HTTP/1.1 200 OK\r\nConnection: keep-alive\r\nContent-Type: text/html\r\nContent-Length: "
+            +std::to_string(msg.size());
+    ret += "\r\n\r\n";
+    ret += msg;
+    return ret;
+}
+
+std::string HTTP::generateHtml(const std::string &msg) {
+    std::string body = "<!DOCTYPE html>\n"
+                       "<html lang=\"en\">\n"
+                       "<head>\n"
+                       "    <meta charset=\"UTF-8\">\n"
+                       "    <title>liuwei</title>\n" + msg +
+                       "</head>\n"
+                       "<body>\n"
+                       "\n"
+                       "</body>\n"
+                       "</html>";
+    return body;
 }
 
 std::regex HTTP::httpRegex_("([A-Z]+) (/.*) HTTP[\\s\\S]*");

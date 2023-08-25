@@ -12,21 +12,24 @@ public:
     typedef std::shared_ptr<TcpConnection> TcpConnectionPtr;
     typedef std::function<void(TcpConnectionPtr, Buffer*)> MessageCallback;
 public:
-    TcpConnection(EventLoop* loop, int fd);
+    TcpConnection(EventLoop* loop, int fd, const std::string& ip);
     ~TcpConnection();
     void start();
     void setMessageCallback(MessageCallback cb);
+    void setIp(const std::string& ip);
     void send(const std::string& msg);
     int fd() const { return channel_.fd(); }
     Channel* channel() { return &channel_; }
+    void handleClose();
+    timeval time_;
 private:
     EventLoop* loop_;
     Channel channel_;
     Buffer inputBuffer_;
     Buffer outputBuffer_;
+    std::string ip_;
     void handleRead();
     void handleWrite();
-    void handleClose();
     MessageCallback messageCallback_;
 };
 

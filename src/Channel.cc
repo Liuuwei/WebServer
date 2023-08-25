@@ -7,7 +7,7 @@ Channel::Channel(EventLoop* loop, int fd) : fd_(fd), events_(0), revents_(0), lo
 }
 
 Channel::~Channel() {
-    
+    ::close(fd_);
 }
 
 void Channel::enableRead() {
@@ -61,12 +61,13 @@ void Channel::handleEvent() {
 
 void Channel::shutdown() {
     unableAll();
-    loop_->runInLoop([&]() {
-        ::shutdown(fd_, SHUT_RD);
-    });
 }
 
 void Channel::unableAll() {
     events_ = 0;
     update();
+}
+
+void Channel::setIp(const std::string& ip) {
+    ip_ = ip;
 }

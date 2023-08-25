@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <sys/epoll.h>
+#include <string>
 
 class EventLoop;
 
@@ -30,11 +31,14 @@ public:
     void unableRevents(int events);
     void handleEvent();
     void shutdown();
+    void setIp(const std::string& ip);
+    std::string ip() const { return ip_; }
 private:
     int fd_;
     int events_;
     int revents_;
     EventLoop* loop_;
+    std::string ip_;
     std::function<void()> readCallback = nullptr;
     std::function<void()> writeCallback = nullptr;
     void update();

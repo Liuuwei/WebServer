@@ -22,7 +22,8 @@ public:
 
     template<typename... Args>
     void LOG(std::string msg = "", Args... args) {
-        msg = "[" + std::to_string(gettid()) +"] " + "LOG: " + msg + "\n";
+        if (!run) return ;
+        msg = "[" + getTime() + "]" + "[" + std::to_string(gettid()) +"] " + "LOG: " + msg + "\n";
 
         std::string s(1024, '\0');
         int n = snprintf(&*s.begin(), s.size(), msg.c_str(), args...);
@@ -35,7 +36,8 @@ public:
 
     template<typename... Args>
     void DEBUG(std::string msg = "", Args... args) {
-        msg = "[" + std::to_string(gettid()) +"] " + "DEBUG: " + msg + "\n";
+        if (!run) return ;
+        msg = "[" + getTime() + "]" + "[" + std::to_string(gettid()) +"] " + "DEBUG: " + msg + "\n";
 
         std::string s(1024, '\0');
         int n = snprintf(&*s.begin(), s.size(), msg.c_str(), args...);
@@ -45,16 +47,23 @@ public:
         logs_.push_back(s);
         cond_.notify_one();
     }
+
+    void close() {
+        run = false;
+    }
 private:
     Log();
     ~Log();
     int fd_;
+    bool run = true;
     struct stat fileStat_{};
     std::string name = "log/log-";
-    std::string fileName_;
+    std::string time_;
     std::mutex mutex_;
     std::condition_variable cond_;
     std::vector<std::string> logs_;
+    tm* getTimeOfDay();
+    std::string getDate();
     std::string getTime();
 };
 

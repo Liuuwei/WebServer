@@ -30,7 +30,9 @@ public:
     HTTP();
     ~HTTP();
     static request parse(const std::string& url);
-    static std::string generate(const request& msg);
+    static std::string generate(request& msg);
+    static std::string generate(const std::string& msg);
+    static std::string generateHtml(const std::string& msg);
 private:
     static std::regex httpRegex_;
 };

@@ -3,11 +3,13 @@
 
 #include <arpa/inet.h>
 
+#include <string>
+
 class Acceptor {
 public:
     Acceptor();
     ~Acceptor();
-    int acceptNew() const;
+    std::pair<int, std::string> acceptNew() const;
     void setListenFd(int fd) {
         listenFd_ = fd;
     }

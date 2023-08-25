@@ -63,6 +63,9 @@ int Buffer::readFd(int fd) {
     vec[1].iov_len = sizeof(extraBuf);
 
     const ssize_t n = ::readv(fd, vec, 2);
+    if (n == 0) {
+        return 0;
+    }
     if (n == -1) {
         return -1;
     }
@@ -80,7 +83,7 @@ int Buffer::writeFd(int fd) {
     std::string msg = retriveAll();
     ssize_t n = ::write(fd, &*msg.begin(), msg.size());
     if (n == -1) {
-        Log::Instance()->DEBUG("write -1");
+        return -1;
     }
     if (n < msg.size()) {
         append(std::string(msg.begin() + n, msg.end()));

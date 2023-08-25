@@ -12,13 +12,14 @@
 
 class ThreadPoll {
 public:
-    explicit ThreadPoll(int nums = 0);
+    explicit ThreadPoll(int nums, EventLoop* loop);
     ~ThreadPoll();
     EventLoop* getOneLoop();
 private:
     int mark_;
     int nums_;
     std::mutex mutex_;
+    EventLoop *loop_;
     std::binary_semaphore sem_;
     std::vector<Thread*> threads_;
     std::vector<EventLoop*> loops_;

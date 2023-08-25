@@ -1,4 +1,0 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.iLpwI6OpNd -B /tmp/tmp.iLpwI6OpNd/cmake-build-para
--- Configuring done
--- Generating done
--- Build files have been written to: /tmp/tmp.iLpwI6OpNd/cmake-build-para

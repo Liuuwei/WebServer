@@ -1,1 +1,0 @@
-/usr/bin/c++  -g -O3 -DNDEBUG CMakeFiles/test.dir/test.cc.o -o ../../bin/test   -L/tmp/tmp.iLpwI6OpNd/lib  -Wl,-rpath,/tmp/tmp.iLpwI6OpNd/lib ../../lib/libWebServer.a 
