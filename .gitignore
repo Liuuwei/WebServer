@@ -2,5 +2,6 @@ cmake-build-aaa
 cmake-build-aa
 cmake-build-debug
 cmake-build-para
+.idea
 .clion.source.upload.marker
 www
