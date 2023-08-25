@@ -5,3 +5,5 @@ cmake-build-para
 .idea
 .clion.source.upload.marker
 www
+bin
+build

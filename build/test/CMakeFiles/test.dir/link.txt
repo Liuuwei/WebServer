@@ -1,1 +1,0 @@
-/usr/bin/c++  -g CMakeFiles/test.dir/test.cc.o -o ../../bin/test   -L/home/parallels/clion/WebServer/lib  -Wl,-rpath,/home/parallels/clion/WebServer/lib ../../lib/libWebServer.a 
