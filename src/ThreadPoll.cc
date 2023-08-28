@@ -4,10 +4,10 @@
 
 ThreadPoll::ThreadPoll(int nums, EventLoop* loop) : mark_(0), nums_(nums), threads_(nums), loops_(nums), sem_(0), loop_(loop){
     for (int i = 0; i < nums; i++) {
-        EventLoop* loop = nullptr;
-        auto thread = new Thread(&loop, sem_);
+        EventLoop* curLoop = nullptr;
+        auto thread = new Thread(&curLoop, sem_);
         threads_[i] = thread;
-        loops_[i] = loop;
+        loops_[i] = curLoop;
     }
 }
 

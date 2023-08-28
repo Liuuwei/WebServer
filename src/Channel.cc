@@ -52,10 +52,12 @@ void Channel::setWriteCallback(std::function<void()> cb) {
 
 void Channel::handleEvent() {
     if (revents_ & EPOLLIN) {
-        readCallback();
+        if (readCallback)
+            readCallback();
     }
     if (revents_ & EPOLLOUT) {
-        writeCallback();
+        if (writeCallback)
+            writeCallback();
     }
 }
 

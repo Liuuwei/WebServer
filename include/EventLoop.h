@@ -26,6 +26,7 @@ public:
     void removeTcp(int fd);
     void runAt(const itimerspec& time, std::function<void()> cb);
     void closeTimer();
+    std::unordered_map<int, std::shared_ptr<TcpConnection>> TcpS() const { return tcps_; }
 private:
     Poll poll_;
     pid_t threadId_;

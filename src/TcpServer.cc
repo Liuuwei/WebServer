@@ -43,7 +43,8 @@ void TcpServer::newTcpConnection() {
     auto tcp = acceptor_.acceptNew();
     int fd = tcp.first;
     if (fd == -1) { return; }
+    std::cout << "new client" << std::endl;
     Log::Instance()->LOG("connect one new client %s", tcp.second.c_str());
     std::shared_ptr<TcpConnection> conn(new TcpConnection(threadPoll_->getOneLoop(), fd, tcp.second));
-    conn->setMessageCallback(onMessageCallback_);
+    conn->setReadCallback(onMessageCallback_);
 }

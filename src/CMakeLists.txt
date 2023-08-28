@@ -12,4 +12,6 @@ add_library(WebServer
         HTTP.cc
         Mutex.cc
         Log.cc
+        TcpClient.cc
+        Connector.cc
 )

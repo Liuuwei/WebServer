@@ -19,10 +19,16 @@ void TcpConnection::start() {
     channel_.enableRead();
 }
 
-void TcpConnection::setMessageCallback(MessageCallback cb) {
-    messageCallback_ = cb;
+void TcpConnection::setReadCallback(MessageCallback cb) {
+    readCallback_ = cb;
     loop_->addTcp(shared_from_this());
-    start();
+    channel_.enableRead();
+}
+
+void TcpConnection::setWriteCallback(MessageCallback cb) {
+    writeCallback_ = cb;
+    loop_->addTcp(shared_from_this());
+    channel_.enableWrite();
 }
 
 void TcpConnection::handleRead() {
@@ -45,7 +51,7 @@ void TcpConnection::handleRead() {
         return;
     }
     if (n > 0) {
-        messageCallback_(shared_from_this(), &inputBuffer_);
+        readCallback_(shared_from_this(), &inputBuffer_);
     } else {
         handleClose();
     }
@@ -54,10 +60,14 @@ void TcpConnection::handleRead() {
 void TcpConnection::handleWrite() {
     gettimeofday(&time_, nullptr);
     ssize_t sendAble = outputBuffer_.readAbleBytes();
+    if (sendAble == 0) {
+        return;
+    }
     ssize_t n = outputBuffer_.writeFd(channel_.fd());
     if (n == -1) {
         Log::Instance()->DEBUG("%s: writeFd is -1", ip_.c_str());
     }
+    writeCallback_(shared_from_this(), &outputBuffer_);
     if (n == sendAble) {
         channel_.unableWrite();
     }

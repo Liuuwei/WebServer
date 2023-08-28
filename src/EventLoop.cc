@@ -82,7 +82,8 @@ void EventLoop::doFunctors() {
 
 void EventLoop::addTcp(std::shared_ptr<TcpConnection> tcp) {
     std::unique_lock lock(tcpMutex_);
-    tcps_.insert({tcp->fd(), tcp});
+    if (tcps_.find(tcp->fd()) == tcps_.end())
+        tcps_.insert({tcp->fd(), tcp});
 }
 
 void EventLoop::removeTcp(int fd) {

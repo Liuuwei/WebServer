@@ -15,11 +15,13 @@ public:
     TcpConnection(EventLoop* loop, int fd, const std::string& ip);
     ~TcpConnection();
     void start();
-    void setMessageCallback(MessageCallback cb);
+    void setReadCallback(MessageCallback cb);
+    void setWriteCallback(MessageCallback cb);
     void setIp(const std::string& ip);
     void send(const std::string& msg);
     int fd() const { return channel_.fd(); }
     Channel* channel() { return &channel_; }
+    EventLoop* loop() const { return loop_; }
     void handleClose();
     timeval time_;
 private:
@@ -30,7 +32,8 @@ private:
     std::string ip_;
     void handleRead();
     void handleWrite();
-    MessageCallback messageCallback_;
+    MessageCallback readCallback_;
+    MessageCallback writeCallback_;
 };
 
 #endif
