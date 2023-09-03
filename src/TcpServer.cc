@@ -2,11 +2,12 @@
 
 #include <signal.h>
 #include <sys/timerfd.h>
+#include <netinet/tcp.h>
 #include "Log.h"
 
 TcpServer::TcpServer(EventLoop* loop, InetAddr addr) : loop_(loop), listenFd_(addr.listenFd()),
                                                         listenChannel_(new Channel(loop, listenFd_)),
-                                                        threadNums_(0), threadPoll_(nullptr) {
+                                                        threadNums_(0), threadPoll_(nullptr), nagle_(true) {
     signal(SIGPIPE, SIG_IGN);
     acceptor_.setListenFd(listenFd_);
 }
@@ -36,6 +37,10 @@ void TcpServer::setOnMessageCallback(const MessageCallback & cb) {
     onMessageCallback_ = cb;
 }
 
+void TcpServer::setOnConnection(const std::function<void(const std::shared_ptr<TcpConnection> &)> &cb) {
+    onConnection_ = cb;
+}
+
 void TcpServer::setThreadNums(int nums) {
     threadNums_ = nums;
     threadPoll_ = new ThreadPoll(threadNums_, loop_);
@@ -52,8 +57,17 @@ void TcpServer::newTcpConnection() {
     if (fd == -1) { return; }
     std::cout << "new client" << std::endl;
     Log::Instance()->LOG("connect one new client %s", tcp.second.c_str());
+    if (!nagle_) {
+        int flag = 1;
+        setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &flag, sizeof(flag));
+    }
     auto loop = threadPoll_->getOneLoop();
     std::shared_ptr<TcpConnection> conn = std::make_shared<TcpConnection>(loop, fd, tcp.second);
     loop->connectionQueue().back().insert(conn);
+    loop->tcpConnections().emplace(fd, conn);
     conn->setReadCallback(onMessageCallback_);
+    tcpConnections_.push_back(conn);
+    if (onConnection_) {
+        onConnection_(conn);
+    }
 }

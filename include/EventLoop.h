@@ -28,7 +28,7 @@ public:
     void runEvery(int time, std::function<void()> cb);
     void clear();
     CircularQueue<Bucket>& connectionQueue() { return connectionQueue_; }
-    std::unordered_map<int, std::weak_ptr<TcpConnection>> TcpS() const { return tcps_; }
+    std::unordered_map<int, std::weak_ptr<TcpConnection>>& tcpConnections() { return tcpConnections_; }
 private:
     Poll poll_;
     pid_t threadId_;
@@ -37,7 +37,7 @@ private:
     int wakeUpFd_;
     Channel wakeUpChannel_;
     std::vector<Functor> functors_;
-    std::unordered_map<int, std::weak_ptr<TcpConnection>> tcps_;
+    std::unordered_map<int, std::weak_ptr<TcpConnection>> tcpConnections_;
     std::function<void()> timerCallback_;
     bool isInLoopThread() const;
     void handleRead() const;

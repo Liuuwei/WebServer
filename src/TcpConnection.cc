@@ -5,7 +5,6 @@
 #include <unistd.h>
 
 TcpConnection::TcpConnection(EventLoop* loop, int fd, const std::string& ip) : loop_(loop), channel_(loop, fd), ip_(ip) {
-    gettimeofday(&time_, nullptr);
     channel_.setIp(ip);
     channel_.setReadCallback(std::bind(&TcpConnection::handleRead, this));
     channel_.setWriteCallback(std::bind(&TcpConnection::handleWrite, this));
@@ -13,6 +12,7 @@ TcpConnection::TcpConnection(EventLoop* loop, int fd, const std::string& ip) : l
 
 TcpConnection::~TcpConnection() {
     Log::Instance()->LOG("%s close connection", ip_.c_str());
+    handleClose();
 }
 
 void TcpConnection::start() {
@@ -21,18 +21,16 @@ void TcpConnection::start() {
 
 void TcpConnection::setReadCallback(MessageCallback cb) {
     readCallback_ = cb;
-    loop_->addTcp(shared_from_this());
     channel_.enableRead();
 }
 
 void TcpConnection::setWriteCallback(MessageCallback cb) {
     writeCallback_ = cb;
-    loop_->addTcp(shared_from_this());
     channel_.enableWrite();
 }
 
 void TcpConnection::handleRead() {
-    gettimeofday(&time_, nullptr);
+    loop_->connectionQueue().back().insert(shared_from_this());
     ssize_t n = inputBuffer_.readFd(channel_.fd());
     if (n == 0) {
         Log::Instance()->DEBUG(": %s readFd is 0", ip_.c_str());
@@ -58,7 +56,7 @@ void TcpConnection::handleRead() {
 }
 
 void TcpConnection::handleWrite() {
-    gettimeofday(&time_, nullptr);
+    loop_->connectionQueue().back().insert(shared_from_this());
     ssize_t sendAble = outputBuffer_.readAbleBytes();
     if (sendAble == 0) {
         return;
@@ -76,13 +74,10 @@ void TcpConnection::handleWrite() {
 
 void TcpConnection::handleClose() {
     channel_.shutdown();
-    loop_->runInLoop([&]() {
-        loop_->removeTcp(fd());
-    });
 }
 
 int TcpConnection::send(const std::string& msg) {
-    gettimeofday(&time_, nullptr);
+    loop_->connectionQueue().back().insert(shared_from_this());
     if (!msg.empty())
         outputBuffer_.append(msg);
     ssize_t sendAble = outputBuffer_.readAbleBytes();
