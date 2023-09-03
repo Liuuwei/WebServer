@@ -18,10 +18,14 @@ public:
     TcpClient(EventLoop* loop, std::string ip, int port);
     ~TcpClient();
     void connect();
-    void start();
-    void send(std::string msg);
+    void start() {}
+    void closeNagle() {
+        nagle_ = false;
+    }
+    int send(const std::string& msg);
     void setWriteCallback(const MessageCallBack & cb) { writeCallback_ = cb; }
     void setReadCallback(const MessageCallBack & cb) { readCallback_ = cb; }
+    void setOnGetConnection(const std::function<void(std::shared_ptr<TcpConnection>)>& cb);
 private:
     EventLoop *loop_;
     int fd_;
@@ -33,6 +37,8 @@ private:
     std::shared_ptr<TcpConnection> writeConn_;
     MessageCallBack writeCallback_;
     MessageCallBack readCallback_;
+    std::function<void(std::shared_ptr<TcpConnection>)> onGetConnection_;
+    bool nagle_;
 };
 
 #endif //WEBSERVER_TCPCLIENT_H

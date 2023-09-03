@@ -18,7 +18,7 @@ public:
     void setReadCallback(MessageCallback cb);
     void setWriteCallback(MessageCallback cb);
     void setIp(const std::string& ip);
-    void send(const std::string& msg);
+    int send(const std::string& msg);
     int fd() const { return channel_.fd(); }
     Channel* channel() { return &channel_; }
     EventLoop* loop() const { return loop_; }

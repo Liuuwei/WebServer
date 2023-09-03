@@ -3,9 +3,13 @@
 //
 #include "TcpClient.h"
 #include <assert.h>
+#include <netinet/tcp.h>
+#include "Log.h"
+#include <sys/signal.h>
 
 TcpClient::TcpClient(EventLoop* loop, std::string ip, int port) : loop_(loop), connector_(ip, port),
-                                                              threadPoll_(1, loop_) {
+                                                              threadPoll_(1, loop_), nagle_(true) {
+    signal(SIGPIPE, SIG_IGN);
 
 }
 
@@ -19,12 +23,27 @@ void TcpClient::connect() {
         std::cout << "connect failed" << std::endl;
     }
     fd_ = connector_.fd();
-    readConn_ = std::make_shared<TcpConnection>(threadPoll_.getOneLoop(), fd_, ip_);
-    readConn_->setReadCallback(readCallback_);
+    if (!nagle_) {
+        int flag = 1;
+        setsockopt(fd_, IPPROTO_TCP, TCP_NODELAY, &flag, sizeof(flag));
+    }
     writeConn_ = std::make_shared<TcpConnection>(loop_, fd_, ip_);
     writeConn_->setWriteCallback(writeCallback_);
+    readConn_ = std::make_shared<TcpConnection>(threadPoll_.getOneLoop(), fd_, ip_);
+    readConn_->setReadCallback(readCallback_);
+    if (onGetConnection_) {
+        onGetConnection_(writeConn_);
+    }
 }
 
-void TcpClient::send(std::string msg) {
-    writeConn_->send(msg);
+int TcpClient::send(const std::string& msg) {
+    int n = writeConn_->send(msg);
+    if (n == -1) {
+        Log::Instance()->DEBUG("send -1 exit(0)");
+    }
+    return n;
+}
+
+void TcpClient::setOnGetConnection(const std::function<void(std::shared_ptr < TcpConnection > )> &cb) {
+    onGetConnection_ = cb;
 }
