@@ -23,7 +23,6 @@ public:
     Channel* channel() { return &channel_; }
     EventLoop* loop() const { return loop_; }
     void handleClose();
-    timeval time_;
 private:
     EventLoop* loop_;
     Channel channel_;

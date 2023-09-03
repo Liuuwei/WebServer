@@ -31,7 +31,7 @@ void Poll::fillActiveChannel(int ret) {
         channelMaps_[fd]->setRevents(events_[i].events);
         activeChannels_.push_back(channelMaps_[fd]);
     }
-    for (auto activeChannel : activeChannels_) {
+    for (auto& activeChannel : activeChannels_) {
         activeChannel->handleEvent();
         activeChannel->unableRevents(activeChannel->revents());
     }

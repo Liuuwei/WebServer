@@ -8,13 +8,17 @@
 #include "Channel.h"
 #include "ThreadPoll.h"
 #include "TcpConnection.h"
+#include "CircularQueue.h"
 
 #include <memory>
+#include <deque>
+#include <unordered_set>
 
 class EventLoop;
 
 class TcpServer {
 public:
+    typedef std::unordered_set<std::shared_ptr<TcpConnection>> Bucket;
     typedef std::function<void(const std::shared_ptr<TcpConnection>&, Buffer*)> MessageCallback;
 public:
     TcpServer(EventLoop* loop, InetAddr addr);
@@ -22,6 +26,7 @@ public:
     void start();
     void setThreadNums(int nums);
     void setOnMessageCallback(const MessageCallback& cb);
+    std::vector<EventLoop*>& loops() { return loops_; }
 private:
     EventLoop* loop_;
     Acceptor acceptor_;
@@ -29,9 +34,10 @@ private:
     int threadNums_;
     Channel* listenChannel_;
     MessageCallback onMessageCallback_;
-    std::vector<std::shared_ptr<TcpConnection>> tcpConnections_;
+    std::vector<std::weak_ptr<TcpConnection>> tcpConnections_;
     ThreadPoll* threadPoll_;
     std::mutex mutex_;
+    std::vector<EventLoop*> loops_;
     void newTcpConnection();
 };
 
