@@ -1,2 +1,5 @@
-个人网站项目:6iu5ei.com  
-使用tinymuduo搭建:github.com/Liuuwei/tinymuduo
+说明
+```
+使用我的另一个项目tinymuduo网络库搭建
+使用该项目运行我的个人网站:6iu5ei.com
+```
